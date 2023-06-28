@@ -11,7 +11,7 @@ const bodyParser = require("body-parser");
 
 //if a front end from a different origin e.g. 5500 is trying to access/make request to server running on
 //different origin e.g. 3000, i have to give him the access because browsers implement cors policy.
-app.use(cors());
+app.use(cors()); //you can pass {origin:[allowed origins]} to the cors function.
 
 const sequelize = require("./util/database");
 

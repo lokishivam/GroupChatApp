@@ -38,26 +38,34 @@ exports.getRecentMessages = async (req, res) => {
   try {
     const groupId = Number(req.query.groupId);
 
-    let oldestMessageIndex; //the oldest message that is printed in chatbox
+    let oldestMessageIndex; //the oldest message's index that is loaded in chatbox
+    //our plan is to send x(limit) amount of messages before the oldestMessageIndex
+
+    const paginationLimit = 10; //messages sent per request
+
     if (req.query.oldestMessageLoaded === "undefined") {
+      //no messages are loaded.
+      //so we will send the top x(limit) amount of messages
       const count = await Message.count({
         where: {
           groupId: groupId,
         },
       });
-      oldestMessageIndex = count;
+      //lets say count is 10, we want all the mesaages previous to 10.
+      oldestMessageIndex = count; //so we consider count as oldest message loaded  on the group.
     } else {
       oldestMessageIndex = Number(req.query.oldestMessageLoaded);
     }
 
-    console.log(oldestMessageIndex);
-    let fromIndex = oldestMessageIndex - 10; //starting index of the new Arrayarray that I will be sending.
+    // console.log(oldestMessageIndex);
+    let fromIndex = oldestMessageIndex - paginationLimit; //starting index of the new Arrayarray that I will be sending.
+    let limit = fromIndex < 0 ? oldestMessageIndex : paginationLimit; //if less than paginationLimit, the limit changes.
     fromIndex = fromIndex >= 0 ? fromIndex : 0;
 
     const group = await Group.findOne({ where: { id: groupId } });
 
     const messages = await group.getMessages({
-      limit: 10,
+      limit: limit,
       offset: fromIndex,
     });
 
