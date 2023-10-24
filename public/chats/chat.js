@@ -1,4 +1,4 @@
-const socket = io("ws://18.205.119.78:3000");
+const socket = io("ws://16.171.115.11:3000");
 const messageForm = document.getElementById("messageForm");
 const displayMessages = document.getElementById("displayMessages");
 const createGroupBtn = document.getElementById("createGroupBtn");
@@ -51,7 +51,7 @@ socket.on("recieveMessage", (groupId, message) => {
 async function getOlderMessages() {
   try {
     const response = await axios.get(
-      `http://18.205.119.78:3000/messages/get-recent-messages/?oldestMessageLoaded=${currentOpenGroupOldestIndex}&groupId=${currentOpenGroupId}`,
+      `http://16.171.115.11:3000/messages/get-recent-messages/?oldestMessageLoaded=${currentOpenGroupOldestIndex}&groupId=${currentOpenGroupId}`,
       {
         headers: { token: token },
       }
@@ -201,7 +201,7 @@ createGroupBtn.addEventListener("click", async () => {
       userId: myId,
     };
     const response = await axios.post(
-      "http://18.205.119.78:3000/groups/create-group",
+      "http://16.171.115.11:3000/groups/create-group",
       obj,
       {
         headers: { token: token },
@@ -252,7 +252,7 @@ function appendLiToGroupList(groupId, groupName, isAdmin) {
 async function getAllGroups() {
   try {
     const response = await axios.get(
-      "http://18.205.119.78:3000/groups/get-all-groups",
+      "http://16.171.115.11:3000/groups/get-all-groups",
       {
         headers: { token: token },
       }
@@ -360,7 +360,7 @@ addUserModalFormBtn.addEventListener("click", async () => {
     const userEmail = document.getElementById("userEmailAddUser").value;
     console.log(currentOpenGroupId);
     const result = await axios.post(
-      "http://18.205.119.78:3000/admin/add-to-group",
+      "http://16.171.115.11:3000/admin/add-to-group",
       { userEmail, groupId: currentOpenGroupId },
       { headers: { token } }
     );
@@ -396,7 +396,7 @@ removeUserModalFormBtn.addEventListener("click", async () => {
     const userEmail = document.getElementById("userEmailRemoveUser").value;
     console.log(currentOpenGroupId);
     const result = await axios.post(
-      "http://18.205.119.78:3000/admin/remove-from-group",
+      "http://16.171.115.11:3000/admin/remove-from-group",
       { userEmail, groupId: currentOpenGroupId },
       { headers: { token } }
     );
@@ -432,7 +432,7 @@ makeAdminModalFormBtn.addEventListener("click", async () => {
     const userEmail = document.getElementById("userEmailmakeAdmin").value;
     console.log(currentOpenGroupId);
     const result = await axios.post(
-      "http://18.205.119.78:3000/admin/make-user-admin",
+      "http://16.171.115.11:3000/admin/make-user-admin",
       { userEmail, groupId: currentOpenGroupId },
       { headers: { token } }
     );

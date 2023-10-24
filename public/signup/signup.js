@@ -13,7 +13,7 @@ async function formhandler(e) {
 
     console.log(obj);
     const data = await axios.post(
-      "http://18.205.119.78:3000/users/add-user",
+      "http://16.171.115.11:3000/users/add-user",
       obj
     );
 

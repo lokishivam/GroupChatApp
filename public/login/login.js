@@ -11,7 +11,7 @@ async function formhandler(e) {
     };
 
     const result = await axios.post(
-      "http://18.205.119.78:3000/users/verify-user",
+      "http://16.171.115.11:3000/users/verify-user",
       obj
     );
     message.classList.remove("errorMessage");
